@@ -6,7 +6,34 @@ import static org.junit.jupiter.api.Assertions.*;
 class RomanNumeralEncoder{
 
     public String encode(int number) {
-        return "I";
+
+        String encoding = "";
+
+        switch (number){
+            case 1:
+                encoding = "I";
+                break;
+            case 5:
+                encoding = "V";
+                break;
+            case 10:
+                encoding = "X";
+                break;
+            case 50:
+                encoding = "L";
+                break;
+            case 100:
+                encoding = "C";
+                break;
+            case 500:
+                encoding = "D";
+                break;
+            case 1000:
+                encoding = "M";
+                break;
+        }
+
+        return encoding;
     }
 }
 
