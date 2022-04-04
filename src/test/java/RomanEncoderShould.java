@@ -71,6 +71,13 @@ public class RomanEncoderShould {
         assertEquals("M", romanNumeralEncoder.encode(1000));
     }
 
-
+    //RED: RomanEncoderShould write_numerals_expressing_each_digit_separately_starting_with_left_most_digit
+    @Test
+    void write_numerals_expressing_each_digit_separately_starting_with_left_most_digit(){
+        assertEquals("XIV", romanNumeralEncoder.encode(14));
+        assertEquals("CCXV", romanNumeralEncoder.encode(215));
+        assertEquals("MCCXXIV", romanNumeralEncoder.encode(1224));
+        assertEquals("CXXIX", romanNumeralEncoder.encode(129));
+    }
 
 }
