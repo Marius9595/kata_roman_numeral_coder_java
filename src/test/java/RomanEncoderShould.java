@@ -13,8 +13,14 @@ class RomanNumeralEncoder{
             case 1:
                 encoding = "I";
                 break;
+            case 4:
+                encoding = "IV";
+                break;
             case 5:
                 encoding = "V";
+                break;
+            case 9:
+                encoding = "IX";
                 break;
             case 10:
                 encoding = "X";
@@ -55,12 +61,16 @@ public class RomanEncoderShould {
     @Test
     void encode_the_basics_symbols(){
         assertEquals("I", romanNumeralEncoder.encode(1));
+        assertEquals("IV", romanNumeralEncoder.encode(4));
         assertEquals("V", romanNumeralEncoder.encode(5));
+        assertEquals("IX", romanNumeralEncoder.encode(9));
         assertEquals("X", romanNumeralEncoder.encode(10));
         assertEquals("L", romanNumeralEncoder.encode(50));
         assertEquals("C", romanNumeralEncoder.encode(100));
         assertEquals("D", romanNumeralEncoder.encode(500));
         assertEquals("M", romanNumeralEncoder.encode(1000));
     }
+
+
 
 }
