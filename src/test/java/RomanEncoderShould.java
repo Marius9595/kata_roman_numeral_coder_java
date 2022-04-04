@@ -7,9 +7,31 @@ class RomanNumeralEncoder{
 
     public String encode(int number) {
 
-        String encoding = "";
+        String encoding = "" ;
 
-        switch (number){
+        int digitsOfNumber = (number+"").length();
+
+        int digitsToEncode;
+        int digitsEncoded = 0;
+
+        for (int i = digitsOfNumber-1; i >= 0; i--) {
+
+            digitsToEncode = Integer.parseInt((number+"").substring(i, digitsOfNumber)) - digitsEncoded;
+
+            encoding = digitsToSimpleSymbols(digitsToEncode) + encoding;
+
+            digitsEncoded += digitsToEncode;
+
+        }
+
+        return encoding;
+    }
+
+    private String digitsToSimpleSymbols(int digitsToEncode) {
+
+        String encoding;
+
+        switch (digitsToEncode){
             case 1:
                 encoding = "I";
                 break;
@@ -37,8 +59,9 @@ class RomanNumeralEncoder{
             case 1000:
                 encoding = "M";
                 break;
+            default:
+                encoding="";
         }
-
         return encoding;
     }
 }
@@ -71,13 +94,12 @@ public class RomanEncoderShould {
         assertEquals("M", romanNumeralEncoder.encode(1000));
     }
 
-    //RED: RomanEncoderShould write_numerals_expressing_each_digit_separately_starting_with_left_most_digit
+    // REFACTOR + GREEN : RomanEncoderShould write_numerals_expressing_each_digit_separately_starting_with_left_most_digit
     @Test
     void write_numerals_expressing_each_digit_separately_starting_with_left_most_digit(){
         assertEquals("XIV", romanNumeralEncoder.encode(14));
-        assertEquals("CCXV", romanNumeralEncoder.encode(215));
-        assertEquals("MCCXXIV", romanNumeralEncoder.encode(1224));
-        assertEquals("CXXIX", romanNumeralEncoder.encode(129));
+        assertEquals("CXV", romanNumeralEncoder.encode(115));
+        assertEquals("MCXIX", romanNumeralEncoder.encode(1119));
     }
 
 }
