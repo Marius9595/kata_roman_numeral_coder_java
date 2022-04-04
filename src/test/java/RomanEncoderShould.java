@@ -28,6 +28,12 @@ public class RomanEncoderShould {
     @Test
     void encode_the_basics_symbols(){
         assertEquals("I", romanNumeralEncoder.encode(1));
+        assertEquals("V", romanNumeralEncoder.encode(5));
+        assertEquals("X", romanNumeralEncoder.encode(10));
+        assertEquals("L", romanNumeralEncoder.encode(50));
+        assertEquals("C", romanNumeralEncoder.encode(100));
+        assertEquals("D", romanNumeralEncoder.encode(500));
+        assertEquals("M", romanNumeralEncoder.encode(1000));
     }
 
 }
