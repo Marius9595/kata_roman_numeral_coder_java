@@ -5,7 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RomanNumeralEncoder{
 
-    public String encode(int i) {
+    public String encode(int number) {
+        return "I";
     }
 }
 
