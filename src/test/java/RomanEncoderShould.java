@@ -2,6 +2,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RomanNumeralEncoder{
 
+
+    private ArrayList<Integer> numeralValuesForSimpleSymbols = new ArrayList<>(Arrays.asList(1, 5, 10, 50, 100, 500, 1000));
 
 
 
@@ -20,18 +23,34 @@ class RomanNumeralEncoder{
 
         int digitsToEncode;
         int digitsEncoded = 0;
+        int extractor;
+        char[] digits;
 
         for (int i = digitsOfNumber-1; i >= 0; i--) {
 
             digitsToEncode = Integer.parseInt((number+"").substring(i, digitsOfNumber)) - digitsEncoded;
             digitsEncoded += digitsToEncode;
 
+            while(digitsToEncode > 0){
 
+                digits =  (digitsToEncode+"").toCharArray();
+                extractor = 1;
 
+                for (char digit: digits) {
+                    if(digit == '0'){
+                        extractor *= 10;
+                    }
+                }
 
-            encoding = toSimpleSymbols(digitsToEncode) + encoding;
+                if(numeralValuesForSimpleSymbols.contains(digitsToEncode)){
+                    encoding = toSimpleSymbols(digitsToEncode) + encoding;
+                    digitsToEncode = 0;
 
-
+                }else{
+                    encoding = toSimpleSymbols(extractor) + encoding;
+                    digitsToEncode -= extractor;
+                }
+            }
         }
 
         return encoding;
@@ -109,12 +128,16 @@ public class RomanEncoderShould {
         assertEquals("MCX", romanNumeralEncoder.encode(1110));
     }
 
-    //RED : RomanEncoderShould repeat_symbol_when_digit_are_not_directly_simple_symbols
+    //GREEN : RomanEncoderShould repeat_symbol_when_digit_are_not_directly_simple_symbols
     @Test
     void repeat_symbol_when_digit_are_not_directly_simple_symbols(){
-        //assertEquals("XXIV", romanNumeralEncoder.encode(20));
-        //assertEquals("XXIV", romanNumeralEncoder.encode(300));
-        //assertEquals("XXIV", romanNumeralEncoder.encode(350));
+        assertEquals("VIII", romanNumeralEncoder.encode(8));
+        assertEquals("XII", romanNumeralEncoder.encode(12));
+        assertEquals("XX", romanNumeralEncoder.encode(20));
+        assertEquals("XXIII", romanNumeralEncoder.encode(23));
+        assertEquals("CCC", romanNumeralEncoder.encode(300));
+        assertEquals("CCCXXVI", romanNumeralEncoder.encode(326));
+        assertEquals("CCCL", romanNumeralEncoder.encode(350));
     }
 
 }
