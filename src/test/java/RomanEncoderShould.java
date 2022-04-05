@@ -17,17 +17,18 @@ class RomanNumeralEncoder{
         for (int i = digitsOfNumber-1; i >= 0; i--) {
 
             digitsToEncode = Integer.parseInt((number+"").substring(i, digitsOfNumber)) - digitsEncoded;
-
-            encoding = digitsToSimpleSymbols(digitsToEncode) + encoding;
-
             digitsEncoded += digitsToEncode;
+
+
+            encoding = toSimpleSymbols(digitsToEncode) + encoding;
+
 
         }
 
         return encoding;
     }
 
-    private String digitsToSimpleSymbols(int digitsToEncode) {
+    private String toSimpleSymbols(int digitsToEncode) {
 
         String encoding;
 
@@ -102,12 +103,12 @@ public class RomanEncoderShould {
         assertEquals("MCXIX", romanNumeralEncoder.encode(1119));
     }
 
-    //RED : RomanEncoderShould repeat_symbol_when_digit_are_not_multiple_of_10_or_50
+    //RED : RomanEncoderShould repeat_symbol_when_digit_are_not_directly_simple_symbols
     @Test
-    void repeat_symbol_when_digit_are_not_multiple_of_10_or_50(){
-        assertEquals("XXIV", romanNumeralEncoder.encode(300));
+    void repeat_symbol_when_digit_are_not_directly_simple_symbols(){
         assertEquals("XXIV", romanNumeralEncoder.encode(20));
-        assertEquals("XXIV", romanNumeralEncoder.encode(350));
+        //assertEquals("XXIV", romanNumeralEncoder.encode(300));
+        //assertEquals("XXIV", romanNumeralEncoder.encode(350));
     }
 
 }
