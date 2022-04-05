@@ -94,12 +94,20 @@ public class RomanEncoderShould {
         assertEquals("M", romanNumeralEncoder.encode(1000));
     }
 
-    // REFACTOR + GREEN : RomanEncoderShould write_numerals_expressing_each_digit_separately_starting_with_left_most_digit
+
     @Test
     void write_numerals_expressing_each_digit_separately_starting_with_left_most_digit(){
         assertEquals("XIV", romanNumeralEncoder.encode(14));
         assertEquals("CXV", romanNumeralEncoder.encode(115));
         assertEquals("MCXIX", romanNumeralEncoder.encode(1119));
+    }
+
+    //RED : RomanEncoderShould repeat_symbol_when_digit_are_not_multiple_of_10_or_50
+    @Test
+    void repeat_symbol_when_digit_are_not_multiple_of_10_or_50(){
+        assertEquals("XXIV", romanNumeralEncoder.encode(300));
+        assertEquals("XXIV", romanNumeralEncoder.encode(20));
+        assertEquals("XXIV", romanNumeralEncoder.encode(350));
     }
 
 }
