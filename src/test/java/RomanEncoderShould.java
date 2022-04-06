@@ -3,17 +3,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 class RomanNumeralEncoder{
 
-
     private ArrayList<Integer> numeralValuesForSimpleSymbols = new ArrayList<>(Arrays.asList(1, 5, 10, 50, 100, 500, 1000));
-
-
 
     public String encode(int number) {
 
@@ -23,37 +19,49 @@ class RomanNumeralEncoder{
 
         int digitsToEncode;
         int digitsEncoded = 0;
-        int extractor;
-        char[] digits;
 
         for (int i = digitsOfNumber-1; i >= 0; i--) {
 
             digitsToEncode = Integer.parseInt((number+"").substring(i, digitsOfNumber)) - digitsEncoded;
             digitsEncoded += digitsToEncode;
 
-            while(digitsToEncode > 0){
-
-                digits =  (digitsToEncode+"").toCharArray();
-                extractor = 1;
-
-                for (char digit: digits) {
-                    if(digit == '0'){
-                        extractor *= 10;
-                    }
-                }
-
-                if(numeralValuesForSimpleSymbols.contains(digitsToEncode)){
-                    encoding = toSimpleSymbols(digitsToEncode) + encoding;
-                    digitsToEncode = 0;
-
-                }else{
-                    encoding = toSimpleSymbols(extractor) + encoding;
-                    digitsToEncode -= extractor;
-                }
-            }
+            encoding = translateToSymbols(encoding, digitsToEncode);
         }
 
         return encoding;
+    }
+
+    private String translateToSymbols(String encoding, int digitsToEncode) {
+
+        int extractor;
+        char[] digits;
+        while(digitsToEncode > 0){
+
+            digits =  (digitsToEncode +"").toCharArray();
+            extractor = 1;
+
+            extractor = setExtractor(extractor, digits);
+
+            if(numeralValuesForSimpleSymbols.contains(digitsToEncode)){
+                encoding = toSimpleSymbols(digitsToEncode) + encoding;
+                digitsToEncode = 0;
+
+            }else{
+                encoding = toSimpleSymbols(extractor) + encoding;
+                digitsToEncode -= extractor;
+            }
+
+        }
+        return encoding;
+    }
+
+    private int setExtractor(int extractor, char[] digits) {
+        for (char digit: digits) {
+            if(digit == '0'){
+                extractor *= 10;
+            }
+        }
+        return extractor;
     }
 
     private String toSimpleSymbols(int digitsToEncode) {
