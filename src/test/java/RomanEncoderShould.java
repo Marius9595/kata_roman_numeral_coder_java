@@ -148,4 +148,11 @@ public class RomanEncoderShould {
         assertEquals("CCCL", romanNumeralEncoder.encode(350));
     }
 
+    @Test
+    void does_not_repeat_more_than_three_symbols_consecutives(){
+        assertEquals("IX", romanNumeralEncoder.encode(9));
+        assertEquals("XCIX", 99);
+        assertEquals("CCCXCIV", 394);
+    }
+
 }
